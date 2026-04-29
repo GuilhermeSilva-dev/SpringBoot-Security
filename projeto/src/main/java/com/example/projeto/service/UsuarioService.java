@@ -5,12 +5,16 @@ import com.example.projeto.dto.UsuarioResponseDTO;
 import com.example.projeto.model.UsuarioModel;
 import com.example.projeto.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     private UsuarioRepository repository;
 
@@ -29,7 +33,7 @@ public class UsuarioService {
         UsuarioModel novoUsuario = new UsuarioModel();
         novoUsuario.setNome(usuarioDTO.getNome());
         novoUsuario.setEmail(usuarioDTO.getEmail());
-        novoUsuario.setSenha(usuarioDTO.getSenha());
+        novoUsuario.setSenha(passwordEncoder.encode(usuarioDTO.getSenha()));
         return repository.save(novoUsuario);
     }
 }

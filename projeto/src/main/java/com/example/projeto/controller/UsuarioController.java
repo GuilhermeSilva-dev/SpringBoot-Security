@@ -1,6 +1,7 @@
 package com.example.projeto.controller;
 
 import com.example.projeto.dto.UsuarioRequestDTO;
+import com.example.projeto.dto.UsuarioResponseDTO;
 import com.example.projeto.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UsuarioController {
     private UsuarioService service;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioRequestDTO>> listar() {
+    public ResponseEntity<List<UsuarioResponseDTO>> listar() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(service.listarTodos());
