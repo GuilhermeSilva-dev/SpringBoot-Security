@@ -1,9 +1,7 @@
 package com.example.Atividade01.dto;
 
 import com.example.Atividade01.model.enums.Sexo;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class AlunoRequestDTO {
     @NotBlank(message = "O nome é obrigatório. ")
@@ -12,8 +10,8 @@ public class AlunoRequestDTO {
     private String nome;
 
     @NotNull(message = "A mátricula é obrigatório")
-    @Size(min = 6, message = "A matricula deve ter o minimo de 6 digitos")
-    @Size(max = 15, message = "A matricula deve ter o máximo de 15 digitos" )
+    @Min(value = 10000, message = "A matricula deve ter o minimo de 6 digitos")
+    @Max(value = 99999999, message = "A matricula deve ter o máximo de 15 digitos" )
     private int matricula;
 
     @NotBlank(message = "A senha é obrigatória.")
@@ -47,13 +45,13 @@ public class AlunoRequestDTO {
     }
 
     @NotNull(message = "A mátricula é obrigatório")
-    @Size(min = 6, message = "A matricula deve ter o minimo de 6 digitos")
-    @Size(max = 15, message = "A matricula deve ter o máximo de 15 digitos")
+    @Min(value = 10000, message = "A matricula deve ter o minimo de 6 digitos")
+    @Max(value = 99999999, message = "A matricula deve ter o máximo de 15 digitos")
     public int getMatricula() {
         return matricula;
     }
 
-    public void setMatricula(@NotNull(message = "A mátricula é obrigatório") @Size(min = 6, message = "A matricula deve ter o minimo de 6 digitos") @Size(max = 15, message = "A matricula deve ter o máximo de 15 digitos") int matricula) {
+    public void setMatricula(@NotNull(message = "A mátricula é obrigatório") @Min(value = 10000, message = "A matricula deve ter o minimo de 6 digitos") @Max(value = 99999999, message = "A matricula deve ter o máximo de 15 digitos") int matricula) {
         this.matricula = matricula;
     }
 

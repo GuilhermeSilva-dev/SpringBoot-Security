@@ -2,8 +2,11 @@ package com.example.Atividade01.service;
 
 import com.example.Atividade01.dto.AlunoRequestDTO;
 import com.example.Atividade01.dto.AlunoResponseDTO;
+import com.example.Atividade01.dto.CursoResponseDTO;
 import com.example.Atividade01.model.AlunoModel;
+import com.example.Atividade01.model.CursoModel;
 import com.example.Atividade01.repository.AlunoRepository;
+import com.example.Atividade01.repository.CursoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,23 +15,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AlunoService {
+public class CursoService {
     @Autowired
-    private AlunoRepository repository;
+    private CursoRepository repository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    public List<AlunoResponseDTO>listarAlunos() {
+    public List<CursoResponseDTO>listarCursos() {
         return repository
                 .findAll()
                 .stream()
-                .map(aluno -> new AlunoResponseDTO(aluno.getNome(), aluno.getMatricula(),aluno.getSexo(),aluno.getIdade()))
+                .map(curso-> new CursoResponseDTO(curso.getNome(), curso.getTurma(),curso.getMateria(),curso.getTurno()))
                 .toList();
     }
 
-    public AlunoModel salvarAlunos(AlunoRequestDTO alunoDTO){
-        if (repository.findByMatricula(alunoDTO.getMatricula()).isPresent()){
+    public CursoModel salvarCursos(CursoRequestDTO cursoDTO){
+        if (repository.findByNome(cursoDTO.getMatricula()).isPresent()){
             throw new RuntimeException("Aluno já cadastrado!");
         }
 

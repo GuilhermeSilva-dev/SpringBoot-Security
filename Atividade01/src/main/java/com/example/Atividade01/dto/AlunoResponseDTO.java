@@ -5,16 +5,18 @@ import com.example.Atividade01.model.enums.Sexo;
 
 public class AlunoResponseDTO {
     private String nome;
-    private String email;
+    private int matricula;
     private Sexo sexo;
+    private int idade;
 
     public AlunoResponseDTO() {
     }
 
-    public AlunoResponseDTO(String nome, String email, Sexo sexo) {
+    public AlunoResponseDTO(String nome, int matricula, Sexo sexo, int idade) {
         this.nome = nome;
-        this.email = email;
+        this.matricula = matricula;
         this.sexo = sexo;
+        this.idade = idade;
     }
 
     public String getNome() {
@@ -25,12 +27,12 @@ public class AlunoResponseDTO {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public int getMatricula() {
+        return matricula;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
     }
 
     public Sexo getSexo() {
@@ -40,4 +42,13 @@ public class AlunoResponseDTO {
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
 }
+
