@@ -1,11 +1,9 @@
 package com.example.Atividade01.service;
 
-import com.example.Atividade01.dto.AlunoRequestDTO;
-import com.example.Atividade01.dto.AlunoResponseDTO;
+
+import com.example.Atividade01.dto.CursoRequestDTO;
 import com.example.Atividade01.dto.CursoResponseDTO;
-import com.example.Atividade01.model.AlunoModel;
 import com.example.Atividade01.model.CursoModel;
-import com.example.Atividade01.repository.AlunoRepository;
 import com.example.Atividade01.repository.CursoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,38 +29,37 @@ public class CursoService {
     }
 
     public CursoModel salvarCursos(CursoRequestDTO cursoDTO){
-        if (repository.findByNome(cursoDTO.getMatricula()).isPresent()){
-            throw new RuntimeException("Aluno já cadastrado!");
+        if (repository.findByNome(cursoDTO.getNome()).isPresent()){
+            throw new RuntimeException("Curso já cadastrado!");
         }
 
-        AlunoModel novoAluno = new AlunoModel();
-        novoAluno.setNome(alunoDTO.getNome());
-        novoAluno.setSexo(alunoDTO.getSexo());
-        novoAluno.setIdade(alunoDTO.getIdade());
-        novoAluno.setMatricula(alunoDTO.getMatricula());
-        novoAluno.setSenha(passwordEncoder.encode(alunoDTO.getSenha()));
+        CursoModel novoCurso = new CursoModel();
+        novoCurso.setNome(cursoDTO.getNome());
+        novoCurso.setTurma(cursoDTO.getTurma());
+        novoCurso.setMateria(cursoDTO.getMateria());
+        novoCurso.setTurno(cursoDTO.getTurno());
 
-        return repository.save(novoAluno);
+        return repository.save(novoCurso);
     }
 
     @Transactional
-    public AlunoResponseDTO atualizarAluno(Long id, AlunoRequestDTO alunoDTO) {
-        AlunoModel alunoExistente = repository.findById(id)
-                .orElseThrow(() -> new  IllegalArgumentException("Este aluno não existe!"));
+    public CursoResponseDTO atualizarCurso(Long id, CursoRequestDTO cursoDTO) {
+        CursoModel cursoExistente = repository.findById(id)
+                .orElseThrow(() -> new  IllegalArgumentException("Este curso não existe!"));
 
-        alunoExistente.setNome(alunoDTO.getNome());
-        alunoExistente.setMatricula(alunoDTO.getMatricula());
-        alunoExistente.setSexo(alunoDTO.getSexo());
-        alunoExistente.setIdade(alunoDTO.getIdade());
-        AlunoModel atualizado = repository.save(alunoExistente);
+        cursoExistente.setNome(cursoDTO.getNome());
+        cursoExistente.setTurma(cursoDTO.getTurma());
+        cursoExistente.setTurno(cursoDTO.getTurno());
+        cursoExistente.setMateria(cursoDTO.getMateria());
+        CursoModel atualizado = repository.save(cursoExistente);
 
-        return new AlunoResponseDTO(atualizado.getNome(),atualizado.getMatricula(),atualizado.getSexo(),atualizado.getIdade());
+        return new CursoResponseDTO(atualizado.getNome(),atualizado.getTurma(),atualizado.getMateria(),atualizado.getTurno());
     }
 
     @Transactional
-    public void deletarAluno(Long id){
+    public void deletarCurso(Long id){
         if (!repository.existsById(id)) {
-            throw new RuntimeException("Este aluno não existe!");
+            throw new RuntimeException("Este curso não existe!");
         }
         repository.existsById(id);
     }
